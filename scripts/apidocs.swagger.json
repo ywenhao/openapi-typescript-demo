@@ -1,0 +1,2655 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "srv bbr alone",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Admin",
+      "description": "管理员管理"
+    },
+    {
+      "name": "NodeGroup",
+      "description": "节点分组管理"
+    },
+    {
+      "name": "TCC",
+      "description": "上报管理"
+    },
+    {
+      "name": "Account",
+      "description": "账户管理"
+    },
+    {
+      "name": "SystemConfig",
+      "description": "系统设置"
+    },
+    {
+      "name": "PackTask",
+      "description": "打包任务管理"
+    },
+    {
+      "name": "DailyStatistic",
+      "description": "每日统计"
+    },
+    {
+      "name": "AdminLoginRecord",
+      "description": "管理员登录记录管理"
+    },
+    {
+      "name": "NodePackTask",
+      "description": "节点打包任务管理"
+    },
+    {
+      "name": "Session",
+      "description": "会话管理"
+    },
+    {
+      "name": "Node",
+      "description": "节点管理"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/account": {
+      "get": {
+        "summary": "获取账户信息",
+        "operationId": "Account_GetAccount",
+        "responses": {
+          "200": {
+            "description": "用户信息",
+            "schema": {
+              "$ref": "#/definitions/adminAdminInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Account"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/account/password": {
+      "put": {
+        "summary": "更新账户密码",
+        "operationId": "Account_UpdateAccountPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/accountUpdateAccountPasswordReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountUpdateAccountPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Account"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/admin": {
+      "get": {
+        "summary": "获取管理员列表",
+        "operationId": "Admin_ListAdmin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminListAdminReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": "起始条数，默认为0.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "分页条数，默认为10 最多每次拿500条.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "添加管理员",
+        "operationId": "Admin_CreateAdmin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminCreateAdminReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminCreateAdminRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "更新管理员",
+        "operationId": "Admin_UpdateAdmin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminUpdateAdminReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminUpdateAdminRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/password": {
+      "put": {
+        "summary": "(更新)重置管理员密码",
+        "operationId": "Admin_UpdateAdminPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminUpdateAdminPasswordReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminUpdateAdminPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/{id}": {
+      "get": {
+        "summary": "获取管理员信息",
+        "operationId": "Admin_GetAdmin",
+        "responses": {
+          "200": {
+            "description": "用户信息",
+            "schema": {
+              "$ref": "#/definitions/adminAdminInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "管理id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "删除管理员",
+        "operationId": "Admin_DeleteAdmin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/adminDeleteAdminReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "管理id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/admin_login_record": {
+      "post": {
+        "operationId": "AdminLoginRecord_ListAdminLoginRecord",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/recordListAdminLoginRecordReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/recordListAdminLoginRecordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AdminLoginRecord"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/daily_statistic": {
+      "get": {
+        "summary": "获取每日统计",
+        "operationId": "DailyStatistic_ListDailyStatistic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/taskListDailyStatisticReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "begin_at",
+            "description": "开始时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "end_at",
+            "description": "结束时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "DailyStatistic"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/node": {
+      "get": {
+        "summary": "获取节点列表",
+        "operationId": "Node_ListNode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeListNodeReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group_id",
+            "description": "分组id.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "node_status",
+            "description": "节点状态.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "tcc_status",
+            "description": "tcc状态.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "description": "搜索 节点名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "kernel_version",
+            "description": "搜索 内核信息.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tcc_version",
+            "description": "搜索 tcc版本.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "description": "起始条数，默认为0.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "分页条数，默认为10 最多每次拿500条.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "ip",
+            "description": "搜索 ip.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/node/statistics": {
+      "get": {
+        "summary": "获取节点统计",
+        "operationId": "Node_GetNodeStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeGetNodeStatisticsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/node/tcc/statistics": {
+      "get": {
+        "summary": "获取节点TCC统计",
+        "operationId": "Node_GetNodeTCCStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeGetNodeTCCStatisticsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/node/{id}": {
+      "get": {
+        "summary": "获取单个节点信息",
+        "operationId": "Node_GetNode",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/nodeNodeInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "节点id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "删除单个节点",
+        "operationId": "Node_DeleteNode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeDeleteNodeReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "节点id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "更新单个节点信息",
+        "operationId": "Node_UpdateNode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeUpdateNodeReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "节点id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "节点名称"
+                },
+                "group_id": {
+                  "type": "string",
+                  "format": "int64",
+                  "title": "分组id"
+                },
+                "next_tcc_status": {
+                  "type": "integer",
+                  "format": "int32",
+                  "title": "启用禁用tcc 下个tcc状态"
+                }
+              },
+              "title": "更新节点信息 请求"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/node_group": {
+      "get": {
+        "summary": "获取节点分组列表",
+        "operationId": "NodeGroup_ListNodeGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupListNodeGroupReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "description": "起始条数，默认为0.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "分页条数，默认为10 最多每次拿500条.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "NodeGroup"
+        ]
+      },
+      "post": {
+        "summary": "创建节点分组",
+        "operationId": "NodeGroup_CreateNodeGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupCreateNodeGroupReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupCreateNodeGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "NodeGroup"
+        ]
+      }
+    },
+    "/v1/node_group/{id}": {
+      "get": {
+        "summary": "获取单个节点分组信息",
+        "operationId": "NodeGroup_GetNodeGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/groupNodeGroupInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "节点分组id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "NodeGroup"
+        ]
+      },
+      "delete": {
+        "summary": "删除单个节点分组",
+        "operationId": "NodeGroup_DeleteNodeGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupDeleteNodeGroupReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "节点分组id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "NodeGroup"
+        ]
+      },
+      "put": {
+        "summary": "更新单个节点分组信息",
+        "operationId": "NodeGroup_UpdateNodeGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupUpdateNodeGroupReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "节点分组id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "节点分组名称"
+                },
+                "remark": {
+                  "type": "string",
+                  "title": "备注"
+                },
+                "order": {
+                  "type": "string",
+                  "format": "int64",
+                  "title": "排序"
+                },
+                "node_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "int64"
+                  },
+                  "title": "节点ids"
+                }
+              },
+              "title": "更新节点分组信息 请求"
+            }
+          }
+        ],
+        "tags": [
+          "NodeGroup"
+        ]
+      }
+    },
+    "/v1/node_groups": {
+      "delete": {
+        "summary": "删除多个节点分组",
+        "operationId": "NodeGroup_DeleteNodeGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/groupDeleteNodeGroupsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/groupDeleteNodeGroupsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "NodeGroup"
+        ]
+      }
+    },
+    "/v1/node_pack_task": {
+      "get": {
+        "summary": "获取节点打包任务列表",
+        "operationId": "NodePackTask_ListNodePackTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/taskListNodePackTaskReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pack_status",
+            "description": "打包状态 0,2,3,4.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "package_status",
+            "description": "包可用状态 0,1,2.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "platform",
+            "description": "系统信息.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "node_name",
+            "description": "节点名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "kernel_version",
+            "description": "内核版本.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "description": "起始条数，默认为0.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "分页条数，默认为10 最多每次拿500条.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "NodePackTask"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/nodes": {
+      "delete": {
+        "summary": "删除多个节点",
+        "operationId": "Node_DeleteNodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeDeleteNodesReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nodeDeleteNodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "更新多个节点信息",
+        "operationId": "Node_UpdateNodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nodeUpdateNodesReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nodeUpdateNodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Node"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/pack_task": {
+      "get": {
+        "summary": "获取打包任务列表",
+        "operationId": "PackTask_ListPackTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/taskListPackTaskReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pack_status",
+            "description": "打包状态 0,2,3,4.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "kernel_version",
+            "description": "内核版本.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "platform",
+            "description": "系统信息.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "description": "起始条数，默认为0.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "分页条数，默认为10 最多每次拿500条.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "PackTask"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/pack_task/statistics": {
+      "get": {
+        "summary": "获取打包申请统计",
+        "operationId": "PackTask_GetPackTaskStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/taskGetPackTaskStatisticsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "PackTask"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/session": {
+      "post": {
+        "summary": "登录(创建新的会话)",
+        "operationId": "Session_CreateSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/sessionCreateSessionReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sessionCreateSessionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/v1/system_config": {
+      "get": {
+        "summary": "获取系统设置列表",
+        "operationId": "SystemConfig_ListSystemConfig",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/configSystemConfigInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "SystemConfig"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "更新系统设置",
+        "operationId": "SystemConfig_UpdateSystemConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/configUpdateSystemConfigReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/configSystemConfigInfo"
+            }
+          }
+        ],
+        "tags": [
+          "SystemConfig"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/v1/tcc/ko": {
+      "get": {
+        "summary": "获取ko内核文件流",
+        "operationId": "TCC_GetTCCKo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tccGetTCCKoRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "TCC"
+        ]
+      }
+    },
+    "/v1/tcc/node": {
+      "post": {
+        "summary": "节点上报",
+        "operationId": "TCC_CreateTCCNode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tccCreateTCCNodeReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tccCreateTCCNodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TCC"
+        ]
+      }
+    },
+    "/v1/tcc/task": {
+      "get": {
+        "summary": "获取打包任务状态",
+        "operationId": "TCC_GetTCCTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tccGetTCCTaskRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "TCC"
+        ]
+      },
+      "post": {
+        "summary": "节点申请打包",
+        "operationId": "TCC_CreateTCCTask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tccCreateTCCTaskRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tccCreateTCCTaskReq"
+            }
+          }
+        ],
+        "tags": [
+          "TCC"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "accountGetAccountReply": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "$ref": "#/definitions/adminAdminInfo",
+          "title": "用户信息"
+        }
+      },
+      "title": "获取账户回复"
+    },
+    "accountUpdateAccountPasswordReply": {
+      "type": "object",
+      "title": "更新账户密码回复"
+    },
+    "accountUpdateAccountPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "example": "123456",
+          "title": "密码，6-20个字符，可包含字母、数字及标点符号（除空格）"
+        },
+        "new_password": {
+          "type": "string",
+          "example": "234567",
+          "title": "密码，6-20个字符，可包含字母、数字及标点符号（除空格）"
+        },
+        "repeat_new_password": {
+          "type": "string",
+          "example": "234567",
+          "title": "密码，6-20个字符，可包含字母、数字及标点符号（除空格）"
+        }
+      },
+      "title": "更新账户密码请求"
+    },
+    "adminAdminInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "example": 11110111,
+          "title": "用户Id"
+        },
+        "user_name": {
+          "type": "string",
+          "example": "admin",
+          "title": "用户名"
+        },
+        "role": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "title": "角色"
+        },
+        "login_time": {
+          "type": "string",
+          "format": "int64",
+          "example": 1891238389,
+          "title": "最后一次登录时间"
+        },
+        "login_ip": {
+          "type": "string",
+          "example": "192.188.2.1",
+          "title": "最后一次登录ip"
+        },
+        "ip_addr": {
+          "type": "string",
+          "example": "中国.成都",
+          "title": "ip所在地"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "example": 1234242421,
+          "title": "创建时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "状态 1-启用 2-禁用"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        }
+      },
+      "title": "管理员信息"
+    },
+    "adminCreateAdminReply": {
+      "type": "object",
+      "title": "添加管理员信息 回复"
+    },
+    "adminCreateAdminRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "admin",
+          "title": "用户名 4-18个字符",
+          "required": [
+            "true"
+          ]
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "title": "状态 1-开启 2-关闭",
+          "required": [
+            "true"
+          ]
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注信息，非必填，200字内；"
+        }
+      },
+      "title": "添加管理员信息 请求",
+      "required": [
+        "true",
+        "true"
+      ]
+    },
+    "adminDeleteAdminReply": {
+      "type": "object",
+      "title": "删除管理员回复"
+    },
+    "adminGetAdminReply": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "$ref": "#/definitions/adminAdminInfo",
+          "title": "用户信息"
+        }
+      },
+      "title": "获取管理员信息 回复"
+    },
+    "adminListAdminReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/adminAdminInfo"
+          },
+          "title": "管理员列表"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总条数"
+        }
+      },
+      "title": "获取管理员列表 回复"
+    },
+    "adminUpdateAdminPasswordReply": {
+      "type": "object",
+      "title": "重置管理员密码 回复"
+    },
+    "adminUpdateAdminPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "用户id"
+        }
+      },
+      "title": "重置管理员密码 请求"
+    },
+    "adminUpdateAdminReply": {
+      "type": "object",
+      "title": "更新管理员信息 回复"
+    },
+    "adminUpdateAdminRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "管理员id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "title": "状态 1-开启 2-关闭",
+          "required": [
+            "true"
+          ]
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注信息，非必填，200字内；"
+        }
+      },
+      "title": "更新管理员信息 请求",
+      "required": [
+        "true"
+      ]
+    },
+    "configListSystemConfigReply": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/configSystemConfigInfo"
+        }
+      },
+      "title": "获取系统配置列表 回复"
+    },
+    "configSystemConfigInfo": {
+      "type": "object",
+      "properties": {
+        "pack_service_switch": {
+          "type": "integer",
+          "format": "int32",
+          "title": "打包服务开关 1.打开,2关闭"
+        },
+        "report_url": {
+          "type": "string",
+          "title": "上报地址"
+        }
+      }
+    },
+    "configUpdateSystemConfigReply": {
+      "type": "object",
+      "title": "更新系统设置 回复"
+    },
+    "groupCreateNodeGroupReply": {
+      "type": "object",
+      "title": "创建节点分组信息 回复"
+    },
+    "groupCreateNodeGroupRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "节点分组名称"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "order": {
+          "type": "string",
+          "format": "int64",
+          "title": "排序"
+        },
+        "node_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "节点ids"
+        }
+      },
+      "title": "创建节点分组信息 请求"
+    },
+    "groupDeleteNodeGroupReply": {
+      "type": "object",
+      "title": "删除单个节点分组 回复"
+    },
+    "groupDeleteNodeGroupsReply": {
+      "type": "object",
+      "title": "删除多个节点分组 回复"
+    },
+    "groupDeleteNodeGroupsRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "节点分组ids"
+        }
+      },
+      "title": "删除多个节点分组 请求"
+    },
+    "groupGetNodeGroupReply": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/groupNodeGroupInfo"
+        }
+      },
+      "title": "获取单个节点分组信息 回复"
+    },
+    "groupListNodeGroupReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/groupNodeGroupInfo"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "获取节点分组列表回复"
+    },
+    "groupNodeGroupInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "id"
+        },
+        "name": {
+          "type": "string",
+          "title": "节点分组名称"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "order": {
+          "type": "string",
+          "format": "int64",
+          "title": "排序"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建日期"
+        },
+        "node_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "关联节点数量"
+        }
+      },
+      "title": "节点分组信息"
+    },
+    "groupUpdateNodeGroupReply": {
+      "type": "object",
+      "title": "更新节点分组信息 回复"
+    },
+    "nodeCPUInfo": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nodeCPUInfoDevice"
+          }
+        }
+      },
+      "title": "cpu信息"
+    },
+    "nodeCPUInfoDevice": {
+      "type": "object",
+      "properties": {
+        "cores": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "model_name": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        }
+      }
+    },
+    "nodeDeleteNodeReply": {
+      "type": "object",
+      "title": "删除单个节点 回复"
+    },
+    "nodeDeleteNodesReply": {
+      "type": "object",
+      "title": "删除多个节点 回复"
+    },
+    "nodeDeleteNodesRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "节点ids"
+        }
+      },
+      "title": "删除多个节点 请求"
+    },
+    "nodeGetNodeReply": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/nodeNodeInfo"
+        }
+      },
+      "title": "获取单个节点信息 回复"
+    },
+    "nodeGetNodeStatisticsReply": {
+      "type": "object",
+      "properties": {
+        "total_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "online_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "在线数"
+        },
+        "offline_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "离线数"
+        }
+      },
+      "title": "获取节点统计 回复"
+    },
+    "nodeGetNodeTCCStatisticsReply": {
+      "type": "object",
+      "properties": {
+        "total_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "enable_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "启用中"
+        },
+        "disable_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "禁用中"
+        }
+      },
+      "title": "获取节点TCC统计数量 回复"
+    },
+    "nodeHardwareInfo": {
+      "type": "object",
+      "properties": {
+        "motherboard": {
+          "$ref": "#/definitions/nodeMotherBoardInfo",
+          "title": "主板信息"
+        },
+        "cpu": {
+          "$ref": "#/definitions/nodeCPUInfo",
+          "title": "cpu信息"
+        },
+        "memory": {
+          "$ref": "#/definitions/nodeMemoryInfo",
+          "title": "内存信息"
+        },
+        "storage": {
+          "$ref": "#/definitions/nodeStorageInfo",
+          "title": "磁盘信息"
+        },
+        "network_controller": {
+          "$ref": "#/definitions/nodeNetworkControllerInfo",
+          "title": "网络控制器信息"
+        }
+      }
+    },
+    "nodeListNodeReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nodeNodeInfo"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "获取节点列表回复"
+    },
+    "nodeMemoryInfo": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nodeMemoryInfoDevice"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "available": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "内存信息"
+    },
+    "nodeMemoryInfoDevice": {
+      "type": "object",
+      "properties": {
+        "manufacturer": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "nodeMotherBoardInfo": {
+      "type": "object",
+      "properties": {
+        "vendor": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        }
+      }
+    },
+    "nodeNetworkControllerInfo": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nodeNetworkControllerInfoDevice"
+          }
+        }
+      }
+    },
+    "nodeNetworkControllerInfoDevice": {
+      "type": "object",
+      "properties": {
+        "vendor": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        }
+      }
+    },
+    "nodeNodeInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "节点id"
+        },
+        "name": {
+          "type": "string",
+          "title": "节点名称"
+        },
+        "group_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "分组id"
+        },
+        "group_name": {
+          "type": "string",
+          "title": "分组名称"
+        },
+        "node_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "节点状态 1:启用,2:禁用"
+        },
+        "tcc_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "tcc状态 1:启用,2:禁用,3.安装失败"
+        },
+        "next_tcc_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "下次tcc状态"
+        },
+        "bbr_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "内核自带的bbr状态 1:启用,2:禁用"
+        },
+        "tcc_version": {
+          "type": "string",
+          "title": "tcc版本"
+        },
+        "latest_tcc_version": {
+          "type": "string",
+          "title": "最新的tcc版本"
+        },
+        "last_reported_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "最后上报时间"
+        },
+        "platform": {
+          "type": "string",
+          "title": "系统平台 CentOS 7.9"
+        },
+        "kernel_version": {
+          "type": "string",
+          "title": "内核版本 3.10.0-1160.81.1.el7.x86_64"
+        },
+        "kernel_arch": {
+          "type": "string",
+          "title": "内核架构 x86_64"
+        },
+        "ips": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "ip列表"
+        },
+        "macs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "mac列表"
+        },
+        "host_id": {
+          "type": "string",
+          "title": "主机id"
+        },
+        "uuid": {
+          "type": "string",
+          "title": "uuid"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "添加日期"
+        },
+        "hardware": {
+          "$ref": "#/definitions/nodeHardwareInfo",
+          "title": "硬件信息"
+        }
+      },
+      "title": "节点信息"
+    },
+    "nodeStorageInfo": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nodeStorageInfoDevice"
+          }
+        }
+      },
+      "title": "磁盘信息"
+    },
+    "nodeStorageInfoDevice": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "名字"
+        },
+        "model": {
+          "type": "string",
+          "title": "型号"
+        },
+        "vendor": {
+          "type": "string",
+          "title": "供应商"
+        },
+        "serial": {
+          "type": "string",
+          "title": "序列号"
+        },
+        "size": {
+          "type": "string",
+          "title": "容量"
+        }
+      }
+    },
+    "nodeUpdateNodeReply": {
+      "type": "object",
+      "title": "更新节点信息 回复"
+    },
+    "nodeUpdateNodesReply": {
+      "type": "object",
+      "title": "更新节点信息 回复"
+    },
+    "nodeUpdateNodesRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "节点ids"
+        },
+        "next_tcc_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "启用禁用tcc 下个tcc状态"
+        }
+      },
+      "title": "更新节点信息 请求"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "recordAdminLoginRecordInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "example": 11110,
+          "title": "id 序号"
+        },
+        "user_name": {
+          "type": "string",
+          "example": "admin",
+          "title": "用户名"
+        },
+        "login_time": {
+          "type": "string",
+          "format": "int64",
+          "example": 1762347242,
+          "title": "最后一次登录时间"
+        },
+        "login_ip": {
+          "type": "string",
+          "example": "192.168.2.1",
+          "title": "最后一次登录ip"
+        },
+        "login_addr": {
+          "type": "string",
+          "example": "中国.成都",
+          "title": "ip所在地"
+        },
+        "system_info": {
+          "type": "string",
+          "title": "系统名称加版本号"
+        },
+        "browser_info": {
+          "type": "string",
+          "title": "浏览器加版本号"
+        },
+        "device_info": {
+          "type": "string",
+          "title": "设备信息"
+        }
+      },
+      "title": "管理员登录记录信息"
+    },
+    "recordListAdminLoginRecordReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/recordAdminLoginRecordInfo"
+          },
+          "title": "登录记录列表"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64",
+          "title": "总条数"
+        }
+      },
+      "title": "获取管理员登录记录列表 回复"
+    },
+    "recordListAdminLoginRecordRequest": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "管理员id"
+        },
+        "begin_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "登录筛选开始时间"
+        },
+        "end_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "登录筛选结束时间"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "起始条数，默认为0"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "分页条数，默认为10 最多每次拿500条"
+        }
+      },
+      "title": "获取管理员登录记录列表 请求"
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "sessionCreateSessionReply": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "$ref": "#/definitions/adminAdminInfo",
+          "title": "用户信息"
+        },
+        "token": {
+          "type": "string",
+          "title": "访问token"
+        }
+      },
+      "title": "登录(创建新的会话)回复"
+    },
+    "sessionCreateSessionRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "admin",
+          "title": "用户名 4-18个字符",
+          "required": [
+            "true"
+          ]
+        },
+        "password": {
+          "type": "string",
+          "example": "123456",
+          "title": "密码，6-20个字符，可包含字母、数字及标点符号（除空格）"
+        }
+      },
+      "title": "登录(创建新的会话)请求",
+      "required": [
+        "true"
+      ]
+    },
+    "taskDailyStatisticInfo": {
+      "type": "object",
+      "properties": {
+        "node_increase_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "新增节点数量"
+        },
+        "tcc_install_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "TCC安装数量"
+        },
+        "pack_task_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "打包任务数量"
+        },
+        "time_day": {
+          "type": "string",
+          "format": "int64",
+          "title": "日期 某天"
+        }
+      },
+      "title": "打包信息"
+    },
+    "taskGetPackTaskStatisticsReply": {
+      "type": "object",
+      "properties": {
+        "total_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "总数"
+        },
+        "fail_num": {
+          "type": "string",
+          "format": "int64",
+          "title": "失败数量"
+        }
+      },
+      "title": "获取打包申请统计 回复"
+    },
+    "taskListDailyStatisticReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/taskDailyStatisticInfo"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "每日统计 回复"
+    },
+    "taskListNodePackTaskReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/taskNodePackTaskInfo"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "获取打包任务列表回复"
+    },
+    "taskListPackTaskReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/taskPackTaskInfo"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "获取打包任务列表回复"
+    },
+    "taskNodePackTaskInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "id"
+        },
+        "node_id": {
+          "type": "string",
+          "format": "int64",
+          "title": "节点id"
+        },
+        "node_name": {
+          "type": "string",
+          "title": "节点名称"
+        },
+        "platform": {
+          "type": "string",
+          "title": "系统平台 CentOS 7.9.2009"
+        },
+        "kernel_version": {
+          "type": "string",
+          "title": "内核版本 5.4.224"
+        },
+        "kernel_arch": {
+          "type": "string",
+          "title": "内核架构 x86_64"
+        },
+        "tcc_version": {
+          "type": "string",
+          "title": "tcc版本"
+        },
+        "pack_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "打包状态 1.待打包(预留) 2.打包中 3.打包成功 4.打包失败"
+        },
+        "package_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "包裹状态 1.不存在 2.已存在"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "pack_begin_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "开始打包时间"
+        },
+        "pack_end_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "结束打包时间"
+        }
+      },
+      "title": "打包信息"
+    },
+    "taskPackTaskInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "打包任务id"
+        },
+        "platform": {
+          "type": "string",
+          "title": "系统平台 centos 7.9.2009"
+        },
+        "kernel_version": {
+          "type": "string",
+          "title": "内核版本 5.4.224"
+        },
+        "kernel_arch": {
+          "type": "string",
+          "title": "内核架构 x86_64"
+        },
+        "tcc_version": {
+          "type": "string",
+          "title": "tcc版本"
+        },
+        "pack_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "打包状态 1.待打包(预留) 2.打包中 3.打包成功 4.打包失败"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "pack_begin_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "开始打包时间"
+        },
+        "pack_end_at": {
+          "type": "string",
+          "format": "int64",
+          "title": "结束打包时间"
+        }
+      },
+      "title": "打包信息"
+    },
+    "tccCreateTCCNodeReply": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/nodeNodeInfo"
+        }
+      },
+      "title": "测试添加节点请求 回复"
+    },
+    "tccCreateTCCNodeRequest": {
+      "type": "object",
+      "properties": {
+        "tcc_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "tcc状态 1:启用,2:禁用,3.安装失败"
+        },
+        "bbr_status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "内核自带的bbr状态 1:启用,2:禁用"
+        },
+        "tcc_version": {
+          "type": "string",
+          "title": "tcc版本 1.0.0"
+        },
+        "platform": {
+          "type": "string",
+          "title": "系统平台 CentOS 7.9.2009"
+        },
+        "kernel_version": {
+          "type": "string",
+          "title": "内核版本 3.10.0-1160.81.1.el7.x86_64"
+        },
+        "kernel_arch": {
+          "type": "string",
+          "title": "内核架构 x86_64"
+        },
+        "ips": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "ip列表"
+        },
+        "macs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "mac列表"
+        },
+        "host_id": {
+          "type": "string",
+          "title": "主机id"
+        },
+        "hardware": {
+          "$ref": "#/definitions/nodeHardwareInfo",
+          "title": "硬件信息"
+        },
+        "node_version": {
+          "type": "string",
+          "title": "节点版本"
+        }
+      },
+      "title": "节点上报"
+    },
+    "tccCreateTCCTaskReq": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "type": "string"
+        },
+        "kernel_version": {
+          "type": "string"
+        },
+        "kernel_arch": {
+          "type": "string"
+        },
+        "node_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "tccCreateTCCTaskRes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "tccGetTCCKoRes": {
+      "type": "object",
+      "properties": {
+        "ko": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tccGetTCCTaskRes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "description": "文本框里要如输入从服务器获取的Token。格式为：Bearer+空格+token。 Bearer可以看作是一个默认的规则。",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
