@@ -1,19 +1,18 @@
+import type { paths } from '@/schema/all'
+
 export type CommonAPI<
-  paths,
-  T extends keyof paths,
+  T extends RejectPrefix<keyof paths>,
   M extends Method = Method,
   S extends number = 200
-> = API<paths, T, M, S>
+> = API<paths, AddPrefix<T>, M, S>
 
 export type CommonParams<
-  paths,
-  T extends keyof paths,
+  T extends RejectPrefix<keyof paths>,
   M extends Method = Method
-> = ApiParameter<paths, T, M>
+> = ApiParameter<paths, AddPrefix<T>, M>
 
 export type CommonReturn<
-  paths,
-  T extends keyof paths,
+  T extends RejectPrefix<keyof paths>,
   M extends Method = Method,
   STATE extends number = 200
-> = ApiReturn<paths, T, M, STATE>
+> = ApiReturn<paths, AddPrefix<T>, M, STATE>

@@ -1,5 +1,15 @@
 type Method = 'get' | 'post' | 'delete' | 'put' | 'patch' | 'head' | 'options'
 
+type ApiPrefix = '/v1'
+
+type RejectPrefix<T> = T extends `/v${number}/${infer Rest}` ? `/${Rest}` : T
+
+type AddPrefix<T> = T extends string
+  ? T extends `/v${number}/${infer Rest}`
+    ? T
+    : `${ApiPrefix}${T}`
+  : T
+
 type PathWrapper<
   Paths,
   Keys extends keyof Paths = keyof Paths,
