@@ -16,3 +16,12 @@ export type CommonReturn<
   M extends Method = Method,
   STATE extends number = 200
 > = ApiReturn<paths, AddPrefix<T>, M, STATE>
+
+export type CommonReturnListItem<
+  T extends RejectPrefix<keyof paths>,
+  M extends Method = Method,
+  K extends string = 'list',
+  STATE extends number = 200
+> = CommonReturn<T, M, STATE> extends { [Key in K]?: Array<infer R> }
+  ? R
+  : never
