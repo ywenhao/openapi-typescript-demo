@@ -24,14 +24,14 @@ function gen() {
     },
   ]
 
-  if (!fs.existsSync(path.join(__dirname, './src/schema'))) {
-    fs.mkdirSync(path.join(__dirname, './src/schema'))
+  if (!fs.existsSync(path.join(__dirname, './schema'))) {
+    fs.mkdirSync(path.join(__dirname, './schema'))
   }
 
   services.forEach(async ({ name, url }) => {
     const output = await openapiTS(url, { version: 2 }).catch(console.log)
     if (output?.length > 195) {
-      const filePath = path.join(__dirname, `./src/schema/${name}.ts`)
+      const filePath = path.join(__dirname, `./schema/${name}.ts`)
       fs.writeFileSync(filePath, output)
       console.log(`生成dts文件: ${filePath}`)
     }
