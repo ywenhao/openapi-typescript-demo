@@ -8,7 +8,7 @@ const schemaPath = path.join(process.cwd(), './schema')
 const services = [
   {
     name: 'all',
-    url: './apidocs.swagger.json'
+    url: path.join(process.cwd(), './scripts/apidocs.swagger.json')
   }
 ]
 
